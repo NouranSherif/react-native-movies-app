@@ -1,26 +1,28 @@
 {
   "expo": {
-    "name": "movies",
+    "name": "M O V I E S",
     "slug": "movies",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/Gemini_Generated_Image_cdkktocdkktocdkk.png",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
     "splash": {
-      "image": "./assets/splash-icon.png",
+      "image": "./assets/Gemini_Generated_Image_cdkktocdkktocdkk.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.momensherif.movies"
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/Gemini_Generated_Image_cdkktocdkktocdkk.png",
         "backgroundColor": "#ffffff"
       },
-      "edgeToEdgeEnabled": true
+      "edgeToEdgeEnabled": true,
+      "package": "com.momensherif.movies"
     },
     "web": {
       "favicon": "./assets/favicon.png"
