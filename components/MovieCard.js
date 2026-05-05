@@ -32,16 +32,16 @@ const MovieCard = ({ data }) => {
       </TouchableOpacity>
 
       <Image
-        source={{ uri: data.poster_path }}
+        source={{ uri: data.poster }}
         style={styles.poster}
         resizeMode="cover"
       />
 
       <View style={styles.infoContainer}>
-        <Text style={styles.title}>{data.original_title}</Text>
-        <Text style={styles.date}>{data.release_date}</Text>
+        <Text style={styles.title}>{data.title}</Text>
+        <Text style={styles.date}>{data.released}</Text>
         <Text numberOfLines={2} style={styles.overview}>
-          {data.overview}
+          {data.plot}
         </Text>
       </View>
     </View>

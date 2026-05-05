@@ -1,21 +1,29 @@
 import { StyleSheet } from 'react-native';
-import React, { useState, createContext } from 'react';
+import React, { useState, createContext, useEffect } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const FavContext = createContext();
 
 const FavProvider = ({ children }) => {
   const [favourites, setFavourites] = useState([]);
 
-  const toggleFavourite = movie => {
+  useEffect(() => {
+    AsyncStorage.getItem('user_favs').then(data => {
+      if (data) setFavourites(JSON.parse(data));
+    });
+  }, []);
+
+  const toggleFavourite = async movie => {
     const isExist = favourites.find(m => m.id === movie.id);
-
+    let updatedFavs;
     if (isExist) {
-      setFavourites(prev => prev.filter(m => m.id !== movie.id));
+      updatedFavs = favourites.filter(m => m.id !== movie.id);
     } else {
-      setFavourites(prev => [...prev, movie]);
+      updatedFavs = [...favourites, movie];
     }
+    setFavourites(updatedFavs);
+    await AsyncStorage.setItem('user_favs', JSON.stringify(updatedFavs));
   };
-
   const isFavourite = movieId => {
     return favourites.some(item => item.id === movieId);
   };

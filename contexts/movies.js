@@ -7,9 +7,9 @@ export const MoviesContext = createContext();
 const MoviesProvider = ({ children }) => {
   const [movies, setMovies] = useState([]);
   useEffect(() => {
-    fetch('https://jsonfakery.com/movies/random/15')
+    fetch('https://fooapi.com/api/movies')
       .then(res => res.json())
-      .then(data => setMovies(data));
+      .then(data => setMovies(data.data));
   }, []);
   return (
     <MoviesContext.Provider value={{ movies }}>

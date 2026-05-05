@@ -12,7 +12,7 @@ const Home = () => {
     setQuery(val);
   };
   const filteredMovies = movies?.filter(mov =>
-    mov.original_title.toLowerCase().includes(query.toLowerCase()),
+    mov.title.toLowerCase().includes(query.toLowerCase()),
   );
   return (
     <View style={styles.container}>
