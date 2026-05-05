@@ -1,5 +1,17 @@
 {
   "expo": {
+    "plugins": [
+      "expo-system-ui",
+      [
+        "expo-splash-screen",
+        {
+          "backgroundColor": "#ffffff",
+          "image": "./assets/Gemini_Generated_Image_cdkktocdkktocdkk.png",
+
+          "imageWidth": 200
+        }
+      ]
+    ],
     "name": "M O V I E S",
     "slug": "movies",
     "version": "1.0.0",

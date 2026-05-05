@@ -11,6 +11,14 @@ import Favourites from './screens/Favourites';
 import MoviesProvider from './contexts/movies';
 import FavProvider from './contexts/favourites';
 
+import * as SplashScreen from 'expo-splash-screen';
+
+// Set the animation options. This is optional.
+SplashScreen.setOptions({
+  duration: 1000,
+  fade: true,
+});
+
 const MyDrawer = createDrawerNavigator({
   screens: {
     Home: Home,
