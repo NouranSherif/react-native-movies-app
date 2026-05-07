@@ -17,6 +17,7 @@ const Home = () => {
   return (
     <View style={styles.container}>
       <Search query={query} onChange={handleChange}></Search>
+
       <FlatList
         data={filteredMovies}
         keyExtractor={item => item.id}
