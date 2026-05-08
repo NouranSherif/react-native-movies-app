@@ -4,7 +4,7 @@ import { MoviesContext } from '../contexts/movies';
 import { FlatList } from 'react-native-gesture-handler';
 import MovieCard from '../components/MovieCard';
 import Search from '../components/search';
-import { Picker } from '@react-native-picker/picker';
+import { Dropdown } from 'react-native-element-dropdown';
 
 const Home = () => {
   const { movies } = useContext(MoviesContext);
@@ -12,7 +12,11 @@ const Home = () => {
   const handleChange = val => {
     setQuery(val);
   };
-  const [sort, setSort] = useState('latest');
+  const [sort, setSort] = useState('');
+  const sortData = [
+    { label: 'Highest Rated', value: 'highest' },
+    { label: 'Lowest Rated', value: 'lowest' },
+  ];
 
   const filteredMovies = useMemo(() => {
     if (!movies) return [];
@@ -21,13 +25,9 @@ const Home = () => {
         return mov.title.toLowerCase().includes(query.toLowerCase());
       })
       .sort((a, b) => {
-        const parseDate = dateStr => {
-          const [day, month, year] = dateStr.split('-');
-          return new Date(year, month - 1, day);
-        };
-        return sort === 'oldest'
-          ? parseDate(a.released) - parseDate(b.released)
-          : parseDate(b.released) - parseDate(a.released);
+        return sort === 'lowest'
+          ? parseFloat(a.imdbRating) - parseFloat(b.imdbRating)
+          : parseFloat(b.imdbRating) - parseFloat(a.imdbRating);
       });
   }, [query, sort, movies]);
 
@@ -37,25 +37,21 @@ const Home = () => {
         <View style={{ flex: 2 }}>
           <Search query={query} onChange={handleChange}></Search>
         </View>
-        <View style={styles.pickerWrapper}>
-          <Picker
-            selectedValue={sort}
-            onValueChange={itemValue => setSort(itemValue)}
-            mode="dropdown"
-            dropdownIconColor="#666"
-            style={styles.pickerInternal}
-          >
-            <Picker.Item
-              label="Latest"
-              value="latest"
-              style={styles.pickerItem}
-            />
-            <Picker.Item
-              label="Oldest"
-              value="oldest"
-              style={styles.pickerItem}
-            />
-          </Picker>
+        <View style={styles.dropdownWrapper}>
+          <Dropdown
+            style={styles.dropdown}
+            selectedTextStyle={styles.selectedTextStyle}
+            placeholderStyle={styles.placeholderStyle}
+            iconStyle={styles.iconStyle}
+            data={sortData}
+            labelField="label"
+            valueField="value"
+            value={sort}
+            placeholder="Sort by"
+            onChange={item => {
+              setSort(item.value);
+            }}
+          />
         </View>
       </View>
       <FlatList
@@ -77,23 +73,38 @@ const styles = StyleSheet.create({
     gap: 10,
     marginTop: 10,
   },
-  pickerWrapper: {
+  dropdownWrapper: {
     flex: 0.75,
     height: 40,
-    backgroundColor: '#F5F5F5',
+    backgroundColor: '#f5f5f5',
     borderRadius: 12,
     borderWidth: 1,
     borderColor: '#E0E0E0',
     justifyContent: 'center',
     overflow: 'hidden',
   },
-  pickerInternal: {
-    transform: [{ scaleX: 0.9 }, { scaleY: 0.9 }],
-    width: '110%',
-    marginLeft: -5,
+
+  dropdown: {
+    flex: 1,
+
+    height: 50,
+    padding: 10,
+    backgroundColor: '#EEEEEE',
   },
-  pickerItem: {
-    fontSize: 14,
-    color: '#333',
+  imageStyle: {
+    width: 24,
+    height: 24,
+    borderRadius: 12,
+  },
+  placeholderStyle: {
+    fontSize: 15,
+  },
+  selectedTextStyle: {
+    fontSize: 16,
+    marginLeft: 2,
+  },
+  iconStyle: {
+    width: 20,
+    height: 20,
   },
 });

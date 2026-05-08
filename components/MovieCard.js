@@ -38,7 +38,19 @@ const MovieCard = ({ data }) => {
       />
 
       <View style={styles.infoContainer}>
-        <Text style={styles.title}>{data.title}</Text>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+          }}
+        >
+          <Text style={styles.title}>{data.title}</Text>
+          <View style={styles.ratingContainer}>
+            <Ionicons name="star" size={14} color="#FFD700" />
+            <Text style={styles.ratingText}>{data.imdbRating}</Text>
+          </View>
+        </View>
         <Text style={styles.date}>{data.released}</Text>
         <Text numberOfLines={2} style={styles.overview}>
           {data.plot}
@@ -102,6 +114,7 @@ const styles = StyleSheet.create({
     color: '#999',
     marginBottom: 8,
   },
+  ratingContainer: { flexDirection: 'row', gap: 5 },
   overview: {
     fontSize: 14,
     color: '#444',
